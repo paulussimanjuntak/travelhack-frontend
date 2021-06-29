@@ -1,0 +1,527 @@
+import { Row, Col, Input, Select, DatePicker, Button } from 'antd'
+
+import Link from 'next/Link'
+import Image from 'next/Image'
+import Card from 'react-bootstrap/Card'
+import Container from 'react-bootstrap/Container'
+
+import IteneraryCard from 'components/Card/IteneraryHome'
+
+const destinations = [
+  {value: "bali", label: "Bali"},
+  {value: "jawa", label: "Jawa"},
+  {value: "kalimantan", label: "Kalimantan"},
+  {value: "sumatra", label: "Sumatra"},
+  {value: "kupang", label: "Kupang"},
+]
+
+const Home = () => {
+  return (
+    <>
+      <Container fluid className="bg-gradient-1" style={{ marginTop: '-89px' }}>
+        <Container className="p-t-89 h-100vh d-flex flex-column justify-content-around">
+          <Row gutter={[16,16]} align="middle">
+            <Col span={12}>
+              <h1 className="display-3 text-uppercase font-weight-normal text-green-0">explore plan and enjoy</h1>
+              <p className="text-green-0-50">
+                A Team of devoted and experienced tourism professionals will provide you with the best advice and tips.
+              </p>
+            </Col>
+            <Col span={12}>
+              <div className="home-image">
+                <Image
+                  width="550"
+                  height="550"
+                  src="/static/images/trip.svg"
+                  alt="trip"
+                />
+              </div>
+            </Col>
+            <Col span={18}>
+              <Card className="border-0 bg-transparent card-itenerary">
+                <Card.Body className="p-2">
+                  <Card.Body className="bg-white-60 bor-rad-4px">
+                    <Row gutter={[10,10]}>
+                      <Col xxl={8} xl={8} lg={8}>
+                        <p className="mb-0 fs-18 text-green-0">Itenerary Name</p>
+                        <p className="text-green-0-50 small mb-2">
+                          Name your awesome itenerary
+                        </p>
+                        <Input size="large" placeholder="Itenerary Name" />
+                      </Col>
+                      <Col xxl={8} xl={8} lg={8}>
+                        <p className="mb-0 fs-18 text-green-0">Destination</p>
+                        <p className="text-green-0-50 small mb-2">
+                          Choose your place for your holiday
+                        </p>
+                        <Select size="large" className="w-100" placeholder="Destination" allowClear>
+                          {destinations.map((destination, i) => (
+                            <Select.Option key={i} value={destination.value}>{destination.label}</Select.Option>
+                          ))}
+                        </Select>
+                      </Col>
+                      <Col xxl={8} xl={8} lg={8}>
+                        <p className="mb-0 fs-18 text-green-0">Dates</p>
+                        <p className="text-green-0-50 small mb-2">
+                          Choose your best days for your awesome trip
+                        </p>
+                        <DatePicker.RangePicker size="large" className="w-100" />
+                      </Col>
+
+                      <Col span={24}>
+                        <Button size="large" type="primary" className="btn-green" block>Submit</Button>
+                      </Col>
+                    </Row>
+                  </Card.Body>
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
+        </Container>
+      </Container>
+
+      <br/> <br/>
+
+      <Container className="my-5">
+        <Row gutter={[16,16]}>
+          <Col span={12}>
+            <Card className="border-0">
+              <Card.Body>
+                <div className="w-100">
+                  <div className="LandingPageMapAnimation__aspectRatio position-relative overflow-hidden LandingPageMapAnimation__animate">
+                    <div className="LandingPageMapAnimation__container">
+                      <img alt="" src="https://wanderlog.com/assets/LandingPageMapAnimation__item0.png" className="LandingPageMapAnimation__item0" />
+                      <img alt="" src="https://wanderlog.com/assets/LandingPageMapAnimation__item1.png" className="LandingPageMapAnimation__item1" />
+                      <img alt="" src="https://wanderlog.com/assets/LandingPageMapAnimation__item0.png" className="LandingPageMapAnimation__item2" />
+                      <img alt="" src="https://wanderlog.com/assets/LandingPageMapAnimation__item1.png" className="LandingPageMapAnimation__item3" />
+                      <img alt="" src="https://wanderlog.com/assets/LandingPageMapAnimation__item2.png" className="LandingPageMapAnimation__item4" />
+                      <img alt="" src="https://wanderlog.com/assets/LandingPageMapAnimation__marker.png" className="LandingPageMapAnimation__marker0" />
+                      <img alt="" src="https://wanderlog.com/assets/LandingPageMapAnimation__marker.png" className="LandingPageMapAnimation__marker1" />
+                      <img alt="" src="https://wanderlog.com/assets/LandingPageMapAnimation__marker.png" className="LandingPageMapAnimation__marker2" />
+                      <img alt="" src="https://wanderlog.com/assets/LandingPageMapAnimation__marker.png" className="LandingPageMapAnimation__marker3" />
+                      <img alt="" src="https://wanderlog.com/assets/LandingPageMapAnimation__marker.png" className="LandingPageMapAnimation__marker4" />
+                      <img alt="" src="https://wanderlog.com/assets/LandingPageMapAnimation__marker.png" className="LandingPageMapAnimation__marker5" />
+                      <img alt="" src="https://wanderlog.com/assets/LandingPageMapAnimation__map.png" className="LandingPageMapAnimation__map" />
+                      <img alt="" src="https://wanderlog.com/assets/LandingPageMapAnimation__base.png" className="LandingPageMapAnimation__base" />
+                    </div>
+                  </div>
+                </div>
+              </Card.Body>
+            </Card>
+          </Col>
+
+          <Col span={10}>
+            <Card className="border-0">
+              <Card.Body>
+                <h2 className="display-4 fs-40 font-weight-normal text-green-0 mt-3">
+                  Your itinerary and your map in one view
+                </h2>
+                <p className="lead text-green-2">
+                  No more switching between different apps, tabs, and tools to keep track of your travel plans.
+                </p>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
+
+      <br/> <br/>
+
+      <Container>
+        <Row gutter={[10,10]}>
+          <Col xxl={8} xl={8} lg={8} md={8} sm={24} xs={24}>
+            <Card className="border-0">
+              <Card.Body className="text-center">
+                <Image
+                  width="240"
+                  height="140"
+                  src="/static/images/feature-drag.png"
+                  alt="trip"
+                  quality="100"
+                />
+                <h5 className="mt-2 text-green-0">Drag and drop</h5>
+                <p className="text-green-0-50 px-xl-5">Make the most of your day. We’ll plan the best route to visit your must-sees.</p>
+              </Card.Body>
+            </Card>
+          </Col>
+          <Col xxl={8} xl={8} lg={8} md={8} sm={24} xs={24}>
+            <Card className="border-0">
+              <Card.Body className="text-center">
+                <Image
+                  width="240"
+                  height="140"
+                  src="/static/images/feature-optimized.png"
+                  alt="trip"
+                  quality="100"
+                />
+                <h5 className="mt-2 text-green-0">Optimize your route</h5>
+                <p className="text-green-0-50 px-xl-5">Make the most of your day. We’ll plan the best route to visit your must-sees.</p>
+              </Card.Body>
+            </Card>
+          </Col>
+          <Col xxl={8} xl={8} lg={8} md={8} sm={24} xs={24}>
+            <Card className="border-0">
+              <Card.Body className="text-center">
+                <Image
+                  width="240"
+                  height="140"
+                  src="/static/images/feature-export2.png"
+                  alt="trip"
+                  quality="100"
+                />
+                <h5 className="mt-2 text-green-0">Export your itinerary to PDF</h5>
+                <p className="text-green-0-50 px-xl-5">Make the most of your day. We’ll plan the best route to visit your must-sees.</p>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
+
+      <br/> <br/> <br/> <br/>
+
+
+      <Container className="LandingPageInner__guideBackground">
+        <h2 className="display-5 font-weight-normal text-green-0 mb-3 text-center">Popular Iteneraries</h2>
+        <p className="lead text-green-2 text-center">Get inspired from around people of the world — with best recommendations from them.</p>
+
+        <Row gutter={[16,16]} className="scrollable-row-itenerary mb-5">
+          {[...Array(10)].map((_,i) => (
+            <Col xxl={5} xl={5} lg={7} md={10} sm={11} xs={18} key={i}>
+              <Link href={`/summary/${i}`}>
+                <a className="text-reset text-decoration-none">
+                  <IteneraryCard />
+                </a>
+              </Link>
+            </Col>
+          ))}
+        </Row>
+
+        <br /> <br /> <br />
+
+        <Row gutter={[16,16]}>
+          <Col span={8}>
+            <h2 className="display-5 font-weight-normal text-green-0 mb-3">Organize your trip</h2>
+            <p className="text-green-2">While it is probably my favorite thing in the world. for many, organizing a trip is a headache. But with us it's super easy.</p>
+            <Button type="primary" className="btn-green">Create Itenerary</Button>
+          </Col>
+          <Col span={16}>
+            <Row gutter={[16,16]}>
+              <Col xxl={8} xl={8} lg={8} md={14} sm={16} xs={18}>
+                <Card className="bor-rad-10px shadow-sm border-0">
+                  <Card.Body>
+                    <div className="text-center">
+                      <Image
+                        width="100"
+                        height="100"
+                        src="/static/images/map-service.png"
+                        alt="trip"
+                      />
+                      <p className="text-green-2 mb-0">Trip planning</p>
+                    </div>
+                  </Card.Body>
+                </Card>
+              </Col>
+              <Col xxl={8} xl={8} lg={8} md={14} sm={16} xs={18}>
+                <Card className="bor-rad-10px shadow-sm border-0">
+                  <Card.Body>
+                    <div className="text-center">
+                      <Image
+                        width="100"
+                        height="100"
+                        src="/static/images/car-service.png"
+                        alt="trip"
+                      />
+                      <p className="text-green-2 mb-0">Rent a driver</p>
+                    </div>
+                  </Card.Body>
+                </Card>
+              </Col>
+              <Col xxl={8} xl={8} lg={8} md={14} sm={16} xs={18}>
+                <Card className="bor-rad-10px shadow-sm border-0">
+                  <Card.Body>
+                    <div className="text-center">
+                      <Image
+                        width="100"
+                        height="100"
+                        src="/static/images/compass-service.png"
+                        alt="trip"
+                      />
+                      <p className="text-green-2 mb-0">Guide escort</p>
+                    </div>
+                  </Card.Body>
+                </Card>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+      </Container>
+
+      <style jsx>{`
+        :global(.bg-gradient-1) {
+          background: rgb(255,255,255);
+          background: linear-gradient(7deg, rgba(255,255,255,1) 0%, rgba(255,254,247,1) 19%, rgba(230,247,255,1) 100%);
+        }
+        .home-image {
+          position: absolute;
+          transform: translate(20%, -40%);
+        }
+        :global(.card-itenerary) {
+          backdrop-filter: blur(4px);
+        }
+        :global(.scrollable-row-itenerary) {
+          overflow-y: auto;
+          flex-flow: unset;
+        }
+        :global(.scrollable-row-itenerary::-webkit-scrollbar) {
+          width: 0;  /* Remove scrollbar space */
+          background: transparent;  /* Optional: just make scrollbar invisible */
+        }
+        :global(.img-itenerary-home) {
+          width: 100%;
+          height: 250px;
+          object-fit: cover;
+        }
+        :global(.card-other-itenerary .ant-card-body) {
+          padding-bottom: 10px;
+        }
+
+        .LandingPageMapAnimation__aspectRatio {
+    width: 100%;
+    padding-top: 43%
+}
+
+.LandingPageMapAnimation__container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%
+}
+
+.LandingPageMapAnimation__item0 {
+    position: absolute;
+    width: 34%;
+    z-index: 6;
+    left: 26%;
+    opacity: 0;
+    transition: opacity .4s ease-out,-webkit-transform .6s ease-in;
+    transition: transform .6s ease-in,opacity .4s ease-out;
+    transition: transform .6s ease-in,opacity .4s ease-out,-webkit-transform .6s ease-in;
+    top: 11%
+}
+
+.LandingPageMapAnimation__animate .LandingPageMapAnimation__item0 {
+    -webkit-transform: translateY(-16%);
+    transform: translateY(-16%);
+    opacity: 1
+}
+
+.LandingPageMapAnimation__item1 {
+    position: absolute;
+    width: 34%;
+    z-index: 7;
+    left: 20%;
+    opacity: 0;
+    transition: opacity .4s ease-out,-webkit-transform .6s ease-in;
+    transition: transform .6s ease-in,opacity .4s ease-out;
+    transition: transform .6s ease-in,opacity .4s ease-out,-webkit-transform .6s ease-in;
+    top: 25%
+}
+
+.LandingPageMapAnimation__animate .LandingPageMapAnimation__item1 {
+    -webkit-transform: translateY(-16%);
+    transform: translateY(-16%);
+    opacity: 1
+}
+
+.LandingPageMapAnimation__item2 {
+    position: absolute;
+    width: 34%;
+    z-index: 8;
+    left: 14%;
+    opacity: 0;
+    transition: opacity .4s ease-out,-webkit-transform .6s ease-in;
+    transition: transform .6s ease-in,opacity .4s ease-out;
+    transition: transform .6s ease-in,opacity .4s ease-out,-webkit-transform .6s ease-in;
+    top: 39%
+}
+
+.LandingPageMapAnimation__animate .LandingPageMapAnimation__item2 {
+    -webkit-transform: translateY(-16%);
+    transform: translateY(-16%);
+    opacity: 1
+}
+
+.LandingPageMapAnimation__item3 {
+    position: absolute;
+    width: 34%;
+    z-index: 9;
+    left: 8%;
+    opacity: 0;
+    transition: opacity .4s ease-out,-webkit-transform .6s ease-in;
+    transition: transform .6s ease-in,opacity .4s ease-out;
+    transition: transform .6s ease-in,opacity .4s ease-out,-webkit-transform .6s ease-in;
+    top: 53%
+}
+
+.LandingPageMapAnimation__animate .LandingPageMapAnimation__item3 {
+    -webkit-transform: translateY(-16%);
+    transform: translateY(-16%);
+    opacity: 1
+}
+
+.LandingPageMapAnimation__item4 {
+    position: absolute;
+    width: 34%;
+    z-index: 10;
+    left: 2%;
+    opacity: 0;
+    transition: opacity .4s ease-out,-webkit-transform .6s ease-in;
+    transition: transform .6s ease-in,opacity .4s ease-out;
+    transition: transform .6s ease-in,opacity .4s ease-out,-webkit-transform .6s ease-in;
+    top: 67%
+}
+
+.LandingPageMapAnimation__animate .LandingPageMapAnimation__item4 {
+    -webkit-transform: translateY(-16%);
+    transform: translateY(-16%);
+    opacity: 1
+}
+
+.LandingPageMapAnimation__marker0 {
+    position: absolute;
+    width: 6%;
+    left: 58%;
+    -webkit-transform: translateY(73%);
+    transform: translateY(73%);
+    z-index: 11;
+    transition: opacity .1s ease-in 1.1s;
+    opacity: 0
+}
+
+.LandingPageMapAnimation__animate .LandingPageMapAnimation__marker0 {
+    opacity: 1
+}
+
+.LandingPageMapAnimation__marker1 {
+    position: absolute;
+    width: 6%;
+    left: 59%;
+    -webkit-transform: translateY(133%);
+    transform: translateY(133%);
+    z-index: 11;
+    transition: opacity .1s ease-in 1s;
+    opacity: 0
+}
+
+.LandingPageMapAnimation__animate .LandingPageMapAnimation__marker1 {
+    opacity: 1
+}
+
+.LandingPageMapAnimation__marker2 {
+    position: absolute;
+    width: 6%;
+    left: 63%;
+    -webkit-transform: translateY(106%);
+    transform: translateY(106%);
+    z-index: 11;
+    transition: opacity .1s ease-in .9s;
+    opacity: 0
+}
+
+.LandingPageMapAnimation__animate .LandingPageMapAnimation__marker2 {
+    opacity: 1
+}
+
+.LandingPageMapAnimation__marker3 {
+    position: absolute;
+    width: 6%;
+    left: 66%;
+    -webkit-transform: translateY(117%);
+    transform: translateY(117%);
+    z-index: 11;
+    transition: opacity .1s ease-in .8s;
+    opacity: 0
+}
+
+.LandingPageMapAnimation__animate .LandingPageMapAnimation__marker3 {
+    opacity: 1
+}
+
+.LandingPageMapAnimation__marker4 {
+    position: absolute;
+    width: 6%;
+    left: 76%;
+    -webkit-transform: translateY(40%);
+    transform: translateY(40%);
+    z-index: 11;
+    transition: opacity .1s ease-in .7s;
+    opacity: 0
+}
+
+.LandingPageMapAnimation__animate .LandingPageMapAnimation__marker4 {
+    opacity: 1
+}
+
+.LandingPageMapAnimation__marker5 {
+    position: absolute;
+    width: 6%;
+    left: 78%;
+    -webkit-transform: translateY(40%);
+    transform: translateY(40%);
+    z-index: 11;
+    transition: opacity .1s ease-in .6s;
+    opacity: 0
+}
+
+.LandingPageMapAnimation__animate .LandingPageMapAnimation__marker5 {
+    opacity: 1
+}
+
+.LandingPageMapAnimation__map {
+    position: absolute;
+    width: 60%;
+    z-index: 4;
+    left: 40%;
+    transition: opacity .4s ease-out,-webkit-transform .6s ease-out;
+    transition: transform .6s ease-out,opacity .4s ease-out;
+    transition: transform .6s ease-out,opacity .4s ease-out,-webkit-transform .6s ease-out;
+    -webkit-transform: translateY(9.8%);
+    transform: translateY(9.8%);
+    opacity: 0
+}
+
+.LandingPageMapAnimation__animate .LandingPageMapAnimation__map {
+    -webkit-transform: translateY(3.8%);
+    transform: translateY(3.8%);
+    opacity: 1
+}
+
+.LandingPageMapAnimation__base {
+    position: absolute;
+    width: 86%;
+    z-index: 1;
+    left: 10%;
+    transition: opacity .4s ease-out,-webkit-transform .6s ease-out;
+    transition: transform .6s ease-out,opacity .4s ease-out;
+    transition: transform .6s ease-out,opacity .4s ease-out,-webkit-transform .6s ease-out;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    opacity: 0
+}
+
+.LandingPageMapAnimation__animate .LandingPageMapAnimation__base {
+    -webkit-transform: translateY(6%);
+    transform: translateY(6%);
+    opacity: 1
+}
+
+:global(.LandingPageInner__guideBackground) {
+  background-color: #2b3964;
+}
+      `}</style>
+    </>
+  )
+}
+
+export default Home
