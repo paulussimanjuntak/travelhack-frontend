@@ -15,4 +15,4 @@ services:
 networks:
   default:
     external:
-      name: smart_cities_guide_networks
+      name: travelhack_networks

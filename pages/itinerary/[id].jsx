@@ -1,7 +1,8 @@
-import { parseCookies } from 'nookies'
+import { useRouter } from 'next/router'
+import { parseCookies, setCookie } from 'nookies'
 import { LoadingOutlined } from '@ant-design/icons'
 import { useLoadScript } from '@react-google-maps/api'
-import { Row, Modal, Button, Select, Form, message, } from 'antd'
+import { Row, Col, Modal, Button, Select, Form, message, Divider, Tag, Space } from 'antd'
 import { useState, useRef, useCallback, useEffect, memo } from 'react'
 
 import { getRange } from 'lib/utility'
@@ -9,11 +10,14 @@ import { reorder, move } from 'lib/draggable'
 import { libraries, getDistance } from 'lib/GMapsOptions'
 
 import moment from 'moment'
+import Card from 'react-bootstrap/Card'
+import Media from 'react-bootstrap/Media'
 
 import Style from 'components/Itinerary/style'
 import BlurBgModal from 'components/Modal/BlurBackground'
 import LeftSideContainer from 'components/Itinerary/LeftSide'
 import RightSideContainer from 'components/Itinerary/RightSide'
+import Pagination from 'components/Pagination'
 
 moment.locale('id')
 
@@ -21,13 +25,32 @@ const BlurBgModalMemo = memo(BlurBgModal)
 const LeftSideContainerMemo = memo(LeftSideContainer)
 const RightSideContainerMemo = memo(RightSideContainer)
 
+const driverTranslatorList = [
+  {
+    avatar: 'https://itin-dev.sfo2.cdn.digitaloceanspaces.com/profilePicture/UkzwVZGSorE7b34M', 
+    name: 'Florida Orange', rating: 4.8, region: 'Kabupaten Badung', role: ['Driver'], language: ['English', 'Mandarin']
+  },
+  {
+    avatar: 'https://itin-dev.sfo2.cdn.digitaloceanspaces.com/profilePicture/VhIpjXrtoIOY6S8R',
+    name: 'Coco Blitz', rating: 4.1, region: 'Kabupaten Jembrana', role: ['Translator'], language: ['English', 'German']
+  },
+  {
+    avatar: 'https://itin-dev.sfo2.cdn.digitaloceanspaces.com/profilePicture/xvej9yjl2q4vaMvs',
+    name: 'Komang Suar', rating: 4.6, region: 'Kabupaten Badung', role: ['Driver', 'Translator'], language: ['Chinese', 'English', 'Japan']
+  },
+  // {name: 'Kadek Mang', rating: 4.6, region: 'Kota Denpasar', role: ['Driver', 'Translator'], language: ['English']},
+]
+
 const initialInfoWindow = {isHover: false, place: null}
 const ItineraryDetail = () => {
+  const router = useRouter()
+
   const [search, setSearch] = useState("")
   const [place, setPlace] = useState([])
   const [origin, setOrigin] = useState([])
   const [showDate, setShowDate] = useState(false)
   const [showNotes, setShowNotes] = useState(false)
+  const [showDriver, setShowDriver] = useState(false)
   const [showOptimizeModal, setShowOptimizeModal] = useState(false)
   const [isOptimize, setIsOptimize] = useState(false)
   const [center, setCenter] = useState({ lat: null, lng: null })
@@ -268,7 +291,6 @@ const ItineraryDetail = () => {
       if (res.status === 'OK') {
         setDirectionsRendererResponse(res)
       } else {
-        // setDirectionsRendererResponse(null)
         return
       }
     }
@@ -314,8 +336,20 @@ const ItineraryDetail = () => {
       return
     }
   }, [itineraries])
-
   /* MAPS */
+
+  const onSubmitHandler = e => {
+    e.preventDefault()
+    const data = {
+      itineraries: JSON.stringify(itineraries)
+    }
+    console.log(JSON.stringify(data))
+    setCookie(null, 'itinerariesData', JSON.stringify(data), {
+      maxAge: 30 * 24 * 60 * 60,
+      path: '/',
+    })
+    router.replace('/itinerary/view/32173218')
+  }
 
   useEffect(() => {
     setTimeout(() => {
@@ -347,6 +381,8 @@ const ItineraryDetail = () => {
           onDragStartHandler={onDragStartHandler}
           onChangeDatePicker={onChangeDatePicker}
           onChangeSelectedDate={onChangeSelectedDate} 
+          showDriver={showDriver}
+          setShowDriver={setShowDriver}
         />
 
         <RightSideContainerMemo 
@@ -413,10 +449,154 @@ const ItineraryDetail = () => {
             
           </Button>
         </div>
-        
       </Modal>
 
-      <BlurBgModalMemo visible={showOptimizeModal} />
+      <Modal
+        centered
+        width={1000}
+        footer={null}
+        onOk={() => setShowDriver(false)}
+        visible={showDriver}
+        onCancel={() => setShowDriver(false)}
+        closeIcon={<i className="fal fa-times" />}
+        className="modal-rad10px modal-body-pt-10"
+        title={<span className="font-weight-bold">Choose a driver / translator</span>}
+      >
+        <Form name="DriverTranslator" layout="vertical">
+          <Row gutter={[10, 10]}>
+            <Col xl={12} lg={12} md={12} sm={24} xs={24}>
+              <Form.Item 
+                label="Search"
+                className="m-b-0"
+              >
+                <Select
+                  showSearch
+                  showArrow={false}
+                  name="region"
+                  className="w-100"
+                  placeholder="Search by region"
+                  // onSearch={fetchAddress}
+                  // value={region.value}
+                  // onSelect={e => inputChangeHandler(e, "region")}
+                  notFoundContent={
+                    <p className="text-center mb-2">
+                      <i className="fad fa-map-marked-alt fs-35 text-center d-block my-2" />
+                      <span className="text-center">Region not found</span>
+                    </p>
+                  }
+                >
+                  {['Badung', 'Bangli', 'Buleleng', 'Singaraja', 'Gianyar', 'Jembrana', 'Karangasem', 'Klungkung'].map((x, i) => (
+                    <Select.Option value={x} key={i}>{x}</Select.Option>
+                  ))}
+                </Select>
+              </Form.Item>
+            </Col>
+
+            <Col xl={12} lg={12} md={12} sm={24} xs={24}>
+              <Form.Item 
+                label="Filter by"
+                className="m-b-0"
+              >
+                <Select
+                  name="filter"
+                  className="w-100"
+                  placeholder="Filter by"
+                  // onSearch={fetchAddress}
+                  // value={region.value}
+                  // onSelect={e => inputChangeHandler(e, "region")}
+                >
+                  {['All', 'Driver & Translator', 'Driver', 'Translator'].map((x, i) => (
+                    <Select.Option value={x} key={i}>{x}</Select.Option>
+                  ))}
+                </Select>
+              </Form.Item>
+            </Col>
+          </Row>
+        </Form>
+
+        <Row gutter={[10, 10]} className="mt-3">
+          {driverTranslatorList.map((data, i) => (
+            <Col xl={8} lg={8} md={8} sm={12} xs={24} key={i}>
+              <Card className="border-0 shadow-sm">
+                <Card.Body className="p-3">
+                  <Media>
+                    <img
+                      width={82}
+                      height={82}
+                      className="mr-3 bor-rad-10px"
+                      src={data.avatar}
+                      alt={data.name}
+                    />
+                    <Media.Body>
+                      <h6 className="mb-0">{data.name}</h6>
+                      <div className="fs-14 font-weight-light mb-0 text-gray-8 d-flex">
+                        <div className="text-center" style={{ width: 22 }}>
+                          <i className="fas fa-star mr-1 text-yellow-1" />
+                        </div>
+                        {data.rating} ({Math.floor(Math.random() * 191)})
+                      </div>
+                      <div className="fs-14 font-weight-light mb-0 text-gray-8 d-flex">
+                        <div className="text-center" style={{ width: 22 }}>
+                          <i className="fal fa-map-marker mr-1" />
+                        </div>
+                        {data.region}
+                      </div>
+                      <div className="fs-14 font-weight-light mb-0 text-gray-8 d-flex">
+                        <div className="text-center" style={{ width: 22 }}>
+                          <i className="fal fa-phone-alt mr-1" />
+                        </div>
+                        0851545454512
+                      </div>
+                    </Media.Body>
+                  </Media>
+
+                  {data.role && data.role.length > 0 && (
+                    <>
+                      <Divider orientation="left" className="my-3 fs-14 text-gray-9">Role</Divider>
+                      {data.role.map((x,i) => (
+                        <Tag color="#f0f0f0" className="text-gray-8 bor-rad-5px" key={i}>{x}</Tag>
+                      ))}
+                    </>
+                  )}
+
+                  {data.language && data.language.length > 0 && (
+                    <>
+                      <Divider orientation="left" className="my-3 fs-14 text-gray-9">Language</Divider>
+                      {data.language.map((x,i) => (
+                        <Tag color="#f0f0f0" className="text-gray-8 bor-rad-5px" key={i}>{x}</Tag>
+                      ))}
+                    </>
+                  )}
+
+                  <Button block type="primary" className="mt-3 btn-green-2">
+                    Select
+                  </Button>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))}
+        </Row>
+
+        <div className="text-center m-t-20">
+          <Pagination current={1} total={30} />
+        </div>
+
+        <Row gutter={[10, 10]} className="mt-3" justify="end">
+          <Col span={24}>
+            <Space className="float-right">
+              <Button type="text">
+                Skip
+              </Button>
+              <Button type="primary" onClick={onSubmitHandler}>
+                Continue
+              </Button>
+            </Space>
+          </Col>
+        </Row>
+
+      </Modal>
+
+      <BlurBgModalMemo visible={showOptimizeModal || showDriver} />
 
       <style jsx>{Style}</style>
     </>

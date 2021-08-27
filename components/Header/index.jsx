@@ -61,7 +61,7 @@ const Header = () => {
           <Navbar.Brand href={`/`} className="d-inline-flex">
             <Image
               height={45}
-              width={200}
+              width={205}
               src="/static/images/logo-label.png"
               className="d-inline-block align-top logo-navbar"
               alt="Smart Cities Guide"

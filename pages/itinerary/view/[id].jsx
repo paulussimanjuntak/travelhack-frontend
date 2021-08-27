@@ -1,4 +1,5 @@
-import { Row, Col, Tabs, Button, Space } from 'antd'
+import { useRouter } from 'next/router'
+import { Row, Col, Tabs, Button, Space, Divider, Tag, Image as AntImage } from 'antd'
 import { useState, useEffect, useRef, useCallback, memo } from 'react'
 import { GoogleMap, Marker, InfoWindow, useLoadScript } from '@react-google-maps/api'
 
@@ -10,6 +11,8 @@ const d = [{"time":"29 Juni 2021","places":[{"place_id":"ChIJx97hVM9E0i0RUVpPBj5
 import moment from 'moment'
 import Image from 'next/image'
 import Card from 'react-bootstrap/Card'
+import Media from 'react-bootstrap/Media'
+import Navbar from 'react-bootstrap/Navbar'
 
 import CardDetailPlaceMap from 'components/Card/DetailPlaceMap'
 import DirectionsAsAService from 'components/Itinerary/DirectionsAsAService'
@@ -36,6 +39,8 @@ const RenderDateTab = ({ date }) => (
 
 const initialInfoWindow = {isHover: false, place: null}
 const DetailViewItinerary = () => {
+  const router = useRouter()
+
   const [itineraries, setItineraries] = useState(d)
   const [selectedTime, setSelectedTime] = useState("")
   const [infoWindow, setInfoWindow] = useState(initialInfoWindow)
@@ -62,7 +67,6 @@ const DetailViewItinerary = () => {
       if (res.status === 'OK') {
         setDirectionsRendererResponse(res)
       } else {
-        // setDirectionsRendererResponse(null)
         return
       }
     }
@@ -104,6 +108,10 @@ const DetailViewItinerary = () => {
     setMarkerClicked({ isClicked: false, place: null })
   }
 
+  const goHome = () => {
+    router.push('/')
+  }
+
   useEffect(() => {
     if(itineraries && itineraries.length > 0) setSelectedTime(itineraries[0].time)
   }, [])
@@ -116,6 +124,22 @@ const DetailViewItinerary = () => {
       <Row gutter={[0,0]} className="itinerary-main">
         <Col xxl={11} xl={11} lg={10} md={10} sm={10} xs={10} style={{ zIndex: 1 }}>
           <Card className="rounded-0 border-0 shadow-1 h-100vh overflow-auto">
+            <Navbar className="position-absolute bg-transparent w-100" style={{ zIndex: 1 }}>
+              <Row gutter={[0,0]} className="w-100 align-items-center">
+                <Col span={11}>
+                  <div className="d-flex">
+                    <Image 
+                      width={40} 
+                      height={40} 
+                      onClick={goHome}
+                      className="hover-pointer" 
+                      src="/static/images/logo-square-white.png" 
+                      alt="TRAVELHACK" 
+                    />
+                  </div>
+                </Col>
+              </Row>
+            </Navbar>
 
             <div className="position-relative">
               <Card.Img variant="top" src="/static/images/tmp/bali.jpeg" />
@@ -126,7 +150,7 @@ const DetailViewItinerary = () => {
             </div>
 
             <Card.Body>
-              <div className="d-flex flex-column my-4">
+              <div className="d-flex flex-column mt-4 mb-3">
                 <div className="d-block d-sm-flex align-items-center mb-2">
                   <div className="d-flex flex-column flex-grow-1 mr-4">
                     <div className="d-flex flex-row align-items-center">
@@ -143,10 +167,13 @@ const DetailViewItinerary = () => {
                       </div>
                       <div className="d-flex flex-column justify-content-center">
                         <div className="d-flex flex-row align-items-center fs-16">
-                          Albert Sandi Suzenso
+                          Albert Suzenso
                         </div>
                         <div className="d-md-flex flex-row flex-wrap text-muted fs-12">
-                          17 Januari 2021
+                          <Space size={5}>
+                            <span>28 Juni 2021</span>·
+                            <span>3 views</span>
+                          </Space>
                         </div>
                       </div>
                     </div>
@@ -162,6 +189,34 @@ const DetailViewItinerary = () => {
 
                 </div>
               </div>
+
+              <Divider orientation="left" className="mb-3 mt-4 fs-14 text-gray-9">Driver / Translator</Divider>
+
+              <Space className="mb-2" size={20}>
+                <Card className="mt-3 border-0 shadow">
+                  <div className="text-center">
+                    <img src="https://itin-dev.sfo2.cdn.digitaloceanspaces.com/profilePicture/VhIpjXrtoIOY6S8R" width="50" height="50" className="img-fit rounded-circle mt-n4 shadow" />
+                  </div>
+                  <Card.Body className="pb-3 px-3 pt-2 text-center">
+                    <h6 className="fs-14 mb-1">Okky Suardhana</h6>
+                    <p className="fs-13 mb-1 text-muted">085154545456</p>
+                    <Tag color="#f0f0f0" className="text-gray-8 bor-rad-5px fs-11">Driver</Tag>
+                  </Card.Body>
+                </Card>
+
+                <Card className="mt-3 border-0 shadow">
+                  <div className="text-center">
+                    <img src="https://itin-dev.sfo2.cdn.digitaloceanspaces.com/profilePicture/xvej9yjl2q4vaMvs" width="50" height="50" className="img-fit rounded-circle mt-n4 shadow" />
+                  </div>
+                  <Card.Body className="pb-3 px-3 pt-2 text-center">
+                    <h6 className="fs-14 mb-1">Komang Suhendra</h6>
+                    <p className="fs-13 mb-1 text-muted">085154545456</p>
+                    <Tag color="#f0f0f0" className="text-gray-8 bor-rad-5px fs-11">Translator</Tag>
+                  </Card.Body>
+                </Card>
+              </Space>
+
+              <Divider orientation="left" className="mb-3 mt-4 fs-14 text-gray-9">Itineraries</Divider>
 
               <Tabs type="card" onChange={onTabChange} activeKey={selectedTime} className="tab-itineraries">
                 {itineraries.map(item => (
@@ -195,12 +250,7 @@ const DetailViewItinerary = () => {
                               display: "inline !important"
                             }}
                           >
-                            Once the city's dominant Black neighborhood, the Fillmore has seen rapid
-                            change and lost much of its original population. What was once the "Western
-                            Addition" is now several neighborhoods; I'm collapsing the lower stretch of
-                            Fillmore and the neighborhood around Japantown into one. Still a lively area
-                            with some of its old staples and some new arrivals, the Fillmore is a
-                            diverse area with a lot to discover.
+                            Actually there are still many beautiful famous beach and hidden beaches in Bali that are not included in the list that I made, but this time I only made a list of beaches that are usually must-visit and easy to reach.
                           </span>
                         </div>
                       </Card.Body>
@@ -209,8 +259,8 @@ const DetailViewItinerary = () => {
                     {item.places && item.places.length > 0 && item.places.map((place, idx) => (
                       <div key={idx}>
                         <div 
-                          className="d-flex flex-row mw-100 align-items-baseline card-left-itinerary"
                           onClick={() => onCardPlaceClick(place, idx+1)}
+                          className="d-flex flex-row mw-100 align-items-baseline card-left-itinerary"
                         >
                           <div className="col-auto pl-0 pr-2 text-center" style={{ width: 30, zIndex: 1 }}>
                             <img src={MarkerIcon} className="mr-2" width="24" height="32" />
@@ -219,7 +269,22 @@ const DetailViewItinerary = () => {
                           <div className="col p-0">
                             <Card className="border-0 bor-rad-10px card-view-places">
                               <Card.Body className="p-3 pl-4 font-weight-bold">
-                                {place.name}
+                                <Media>
+                                  <Media.Body>
+                                    <p className="mb-0"> {place.name} </p>
+                                    <p className="text-muted mb-0 font-weight-normal">{place.vicinity ? place.vicinity : place.address}</p>
+                                  </Media.Body>
+                                  <div className="img-itinerary-card-view">
+                                    <AntImage
+                                      width={200}
+                                      height={120}
+                                      className="img-fit bor-rad-5px shadow-1"
+                                      src={place.icon}
+                                      alt={place.name}
+                                    />
+                                  </div>
+                                </Media>
+                                
                               </Card.Body>
                             </Card>
                           </div>
@@ -237,7 +302,10 @@ const DetailViewItinerary = () => {
                             <div style={{ width: 45 }} />
                             <div className="BlockDividerDefault__rightOfAdd">
                               <Space size={5}>
-                                <i className="fas fa-car mr-2" /> <span>28 min drive</span>·<span>15.0 mi</span>·<a> Direction</a>
+                                <i className="fas fa-car mr-2" /> 
+                                <span>{Math.floor(Math.random() * 100)} min drive</span>·
+                                <span>{Math.floor(Math.random() * 51)} mi</span>·
+                                <a>Direction</a>
                               </Space>
                             </div>
                           </div>
@@ -390,6 +458,13 @@ const DetailViewItinerary = () => {
       :global(.card-notes) {
         border-radius: 10px!important;
         background-color: var(--gray-3);
+      }
+
+      :global(.img-itinerary-card-view .ant-image-mask) {
+        border-radius: 5px;
+      }
+      :global(.img-itinerary-card-view .ant-image-mask .ant-image-mask-info .anticon.anticon-eye) {
+        vertical-align: text-bottom;
       }
       `}</style>
     </>

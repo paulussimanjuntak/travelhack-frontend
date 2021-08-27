@@ -5,14 +5,17 @@ import { motion } from 'framer-motion'
 import { Divider, Form, Input, Row, Col, Button, Space, Checkbox, Select, Upload } from 'antd'
 
 import { formImage } from 'formdata/image'
+import { list_language } from 'lib/list_language'
 import { imagePreview, uploadButton } from 'lib/imageUploader'
 
 import isIn from 'validator/lib/isIn'
-
 import Style from './style'
+
+const role_list = [{value: "driver", label: "Driver"}, {value: "translator", label: "Translator"}]
 
 const RegisterDriverTranslator = ({ changeView }) => {
   const [role, setRole] = useState([])
+  const [language, setLanguage] = useState([])
   const [loading, setLoading] = useState(false)
   const [imageList, setImageList] = useState(formImage)
 
@@ -53,6 +56,51 @@ const RegisterDriverTranslator = ({ changeView }) => {
                     placeholder="Phone"
                   />
                 </Form.Item>
+
+                <Form.Item 
+                  label="Region"
+                  className="m-b-10"
+                >
+                  <Input 
+                    name="region"
+                    placeholder="Region"
+                  />
+                </Form.Item>
+
+                <Form.Item 
+                  label="Your Role"
+                  className="m-b-10"
+                >
+                  <Select
+                    mode="multiple"
+                    style={{ width: '100%' }}
+                    onChange={val => setRole(val)}
+                    placeholder="Choose your role"
+                    removeIcon={<i className="fal fa-times" />}
+                  >
+                    {role_list.map((r, i) => ( <Select.Option key={i} value={r.value}>{r.label}</Select.Option> ))}
+                  </Select>
+                </Form.Item>
+
+                {isIn('translator', role) && (
+                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                    <Form.Item 
+                      label="Language"
+                      className="m-b-10"
+                    >
+                      <Select
+                        mode="multiple"
+                        style={{ width: '100%' }}
+                        onChange={val => setLanguage(val)}
+                        placeholder="Choose your language"
+                        removeIcon={<i className="fal fa-times" />}
+                      >
+                        {list_language.map((v, i) => ( <Select.Option key={i} value={v.name}>{v.name}</Select.Option> ))}
+                      </Select>
+                    </Form.Item>
+                  </motion.div>
+                )}
+
                 <Form.Item 
                   label="Password"
                   className="m-b-10"
@@ -70,22 +118,6 @@ const RegisterDriverTranslator = ({ changeView }) => {
                     name="confirm_password"
                     placeholder="Confirmation Password" 
                   />
-                </Form.Item>
-
-                <Form.Item 
-                  label="Your Role"
-                  className="m-b-10 form-p-label-0"
-                >
-                  <Select
-                    mode="multiple"
-                    onChange={val => setRole(val)}
-                    style={{ width: '100%' }}
-                    placeholder="Choose your role"
-                    removeIcon={<i className="fal fa-times" />}
-                  >
-                    <Select.Option value="driver">Driver</Select.Option>
-                    <Select.Option value="translator">Translator</Select.Option>
-                  </Select>
                 </Form.Item>
 
                 <Row gutter={[10,10]}>

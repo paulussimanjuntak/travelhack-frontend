@@ -11,7 +11,7 @@ const AuthLayout = ({ children }) => {
               <h1 className="font-weight-lighter">
                 <Link href="/">
                   <a className="text-reset text-decoration-none">
-                    Smart Cities Guide
+                    TRAVELHACK
                   </a>
                 </Link>
               </h1>

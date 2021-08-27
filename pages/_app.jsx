@@ -11,10 +11,10 @@ const App = ({ Component, pageProps }) => {
     <>
       <Head>
         <meta charSet="UTF-8" />
-        <title>Smart Cities Guide</title>
-        <link rel="icon" href="/static/images/map.png" />
+        <title>TRAVELHACK</title>
+        <link rel="icon" href="/static/images/logo-square.png" />
         <meta name="robots" content="index, follow" />
-        <meta name="description" content="Smart Cities Guide" />
+        <meta name="description" content="TRAVELHACK" />
         <link rel="stylesheet" href="/static/css/global.css" />
         <link rel="stylesheet" href="/static/css/utility.min.css" />
         <link rel="stylesheet" href="/static/fontawesome/css/all.min.css" />

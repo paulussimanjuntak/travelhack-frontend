@@ -203,6 +203,8 @@ const style = css`
   width: 100%;
   max-width: 500px;
   margin: auto;
+  height: auto;
+  max-height: calc(100vh - 100px);
 }
 
 .auth-content-title {
@@ -217,7 +219,7 @@ const style = css`
 
 @media (min-width: 960px) {
   .auth-content {
-    padding: 30px 20px 0;
+    padding: 0px 20px 0;
     margin: 0;
   }
   .auth-content-title {

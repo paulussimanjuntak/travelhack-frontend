@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import Card from 'react-bootstrap/Card'
 import Media from 'react-bootstrap/Media'
 
-const ItineraryCardOther = () => {
+const ItineraryCardOther = ({ data }) => {
   return (
     <>
       <motion.div
@@ -15,11 +15,11 @@ const ItineraryCardOther = () => {
           <Card className="bor-rad-20px border-0">
             <img 
               className="card-img img-fit bor-rad-20px"
-              src="https://api.balihotproperty.com/static/regions/cecb308bddca4cb1a6e89b0ae5520f63.jpeg" width="300" height="400" 
+              src={data.image} width="300" height="350" 
             />
             <div className="card-img-overlay bor-rad-20px">
               <Card.Body className="text-truncate">
-                <h4 className="text-capitalize text-white fs-18 text-truncate">Yuk ke Bali guys</h4>
+                <h4 className="text-capitalize text-white fs-18 text-truncate">{data.title}</h4>
                 <Media>
                   <img
                     width={32}
@@ -28,8 +28,8 @@ const ItineraryCardOther = () => {
                     src="https://itin-dev.sfo2.cdn.digitaloceanspaces.com/profilePicture/5aK5ZGwKFUffe1XA"
                   />
                   <Media.Body className="text-truncate">
-                    <h6 className="text-gray-5 fs-14 mb-n1 text-truncate">Okky Sukadandan</h6>
-                    <span className="text-gray-5 fs-10">2618 views • 23 likes</span>
+                    <h6 className="text-gray-5 fs-14 mb-n1 text-truncate">{data.name}</h6>
+                    <span className="text-gray-5 fs-10">{Math.floor(Math.random() * 1002)} views • {Math.floor(Math.random() * 80)} likes</span>
                   </Media.Body>
                 </Media>
               </Card.Body>

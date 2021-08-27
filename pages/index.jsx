@@ -51,6 +51,34 @@ const pricingList = [
   },
 ]
 
+const popular_itineraries_list = [
+  { 
+    title: 'Plan to sumba',
+    name: 'Albert Hugo',
+    image: 'https://api.balihotproperty.com/static/regions/1e4daef319cb45f78473249fa18823b6.jpeg'
+  },
+  {
+    title: 'West Bali',
+    name: 'Albert Hugo',
+    image: 'https://images.unsplash.com/photo-1554931670-4ebfabf6e7a9?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80'
+  },
+  {
+    title: 'Nusa Penida',
+    name: 'Loise Smith',
+    image: 'https://api.balihotproperty.com/static/regions/494823ea89c641c28b308f06a92eea3a.jpeg',
+  },
+  {
+    title: 'Liburan ke bali',
+    name: 'Rio Victoria',
+    image: 'https://api.balihotproperty.com/static/regions/cecb308bddca4cb1a6e89b0ae5520f63.jpeg',
+  },
+  {
+    title: 'North Bali',
+    name: 'Albert Hugo',
+    image: 'https://api.balihotproperty.com/static/regions/c3f792521ab2453ba870e7e72c3b93b4.jpeg'
+  },
+]
+
 const Home = () => {
   return (
     <>
@@ -60,7 +88,7 @@ const Home = () => {
             <Col span={12}>
               <h1 className="display-3 text-uppercase font-weight-normal text-green-0">explore plan and enjoy</h1>
               <p className="text-green-0-50">
-                A Team of devoted and experienced tourism professionals will provide you with the best advice and tips.
+                Build, organize, and map your itineraries with Travelhack is the easiest way to plan your trip, this is designed for vacations & road trips.
               </p>
             </Col>
             <Col span={12}>
@@ -303,11 +331,11 @@ const Home = () => {
           </p>
 
           <Row gutter={[16,16]} className="scrollable-row-itenerary">
-            {[...Array(10)].map((_,i) => (
+            {popular_itineraries_list.map((data,i) => (
               <Col xxl={5} xl={5} lg={7} md={10} sm={11} xs={18} key={i}>
                 <Link href={`/summary/${i}`}>
                   <a className="text-reset text-decoration-none">
-                    <ItineraryCardOther />
+                    <ItineraryCardOther data={data} />
                   </a>
                 </Link>
               </Col>

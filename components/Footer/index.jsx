@@ -12,13 +12,13 @@ const Footer = () => {
         <Container>
           <Row gutter={[10,10]} justify="center" className="text-center">
             <Col span={24}>
-              <Image src="/static/images/logo.png" height={54} width={208} alt="Smart Cities Guide" />
+              <Image src="/static/images/logo-square.png" height={75} width={75} alt="TRAVELHACK" />
               <br /> <br /> <br />
             </Col>
             <Col xl={8} lg={8} md={8} sm={24} xs={24}>
-              <h3 className="text-green-1 bold h3">Short History</h3>
+              <h3 className="text-green-1 bold h3">TRAVELHACK</h3>
               <p className="text-green-0 font-weight-light">
-                Aliquam dictum dapibus neque at elementum. Ut id suscipit risus, vel luctus dolor. Nullam fermentum rhoncus ultrices. Integer ut aliquam ipsum, vel sollicitudin erat. Vestibulum dui felis, sagittis vitae magna ac, finibus nisi.
+                Travelhack is the best planning web app for any trip you might have in your mind.
               </p>
             </Col>
 
@@ -32,7 +32,7 @@ const Footer = () => {
               </p>
               <p className="font-weight-light">
                 <i className="fas fa-envelope"></i> Email:{" "}
-                <a href="mailto:citiesguide@gmail.com">citiesguide@gmail.com</a>
+                <a href="mailto:travelhack@gmail.com">travelhack@gmail.com</a>
               </p>
             </Col>
 
@@ -57,7 +57,7 @@ const Footer = () => {
 
           <Divider />
 
-          <p className="text-center mb-5 pb-4 text-green-0 font-weight-light">All right reserved @citiesguide</p>
+          <p className="text-center mb-5 pb-4 text-green-0 font-weight-light">All right reserved @travelhack</p>
         </Container>
       </div>
 

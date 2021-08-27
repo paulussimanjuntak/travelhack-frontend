@@ -1,11 +1,11 @@
 import { memo } from 'react'
-import { setCookie } from 'nookies'
 import { useRouter } from 'next/router'
 import { DragDropContext } from 'react-beautiful-dnd'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Row, Col, Button, DatePicker, Popconfirm, Space, Tooltip } from 'antd'
 
 import moment from 'moment'
+import Image from 'next/image'
 import NoSSR from 'react-no-ssr'
 import Card from 'react-bootstrap/Card'
 import Navbar from 'react-bootstrap/Navbar'
@@ -22,21 +22,17 @@ const DraggableDateContainerMemo = memo(DraggableDateContainer)
 
 const LeftSideItinerary = ({ 
   itinenaryName, onDragStartHandler, onDragEndHandler, itineraries, selectedTime, onChangeSelectedDate, 
-  showDate, setShowDate, onChangeDatePicker, onDragEnd, place, idxItinerary, showNotes, setShowNotes, setInfoWindow
+  showDate, setShowDate, onChangeDatePicker, onDragEnd, place, idxItinerary, showNotes, setShowNotes, setInfoWindow, setShowDriver
 }) => {
   const router = useRouter()
 
   const onSubmitHandler = e => {
     e.preventDefault()
-    const data = {
-      itineraries: JSON.stringify(itineraries)
-    }
-    console.log(JSON.stringify(data))
-    setCookie(null, 'itinerariesData', JSON.stringify(data), {
-      maxAge: 30 * 24 * 60 * 60,
-      path: '/',
-    })
-    router.replace('/itinerary/view/32173218')
+    setShowDriver(true)
+  }
+
+  const goHome = () => {
+    router.push('/')
   }
 
   return (
@@ -46,8 +42,18 @@ const LeftSideItinerary = ({
         <Navbar className="border-bottom bg-white w-100" style={{ zIndex: 0 }}>
           <Row gutter={[0,0]} className="w-100 align-items-center">
             <Col span={11}>
-              <div className="w-100 text-truncate" style={{ lineHeight: 1 }}>
-                <p className="navbar-brand text-truncate mb-0 w-100">{itinenaryName}</p>
+              <div className="d-flex">
+                <Image 
+                  width={36} 
+                  height={30} 
+                  onClick={goHome}
+                  className="hover-pointer" 
+                  src="/static/images/logo-square.png" 
+                  alt="TRAVELHACK" 
+                />
+                <div className="ml-1 w-100 text-truncate" style={{ lineHeight: 1 }}>
+                  <p className="navbar-brand text-truncate mb-0 w-100">{itinenaryName}</p>
+                </div>
               </div>
             </Col>
             <Col span={11} className="overflow-auto">

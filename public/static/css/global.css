@@ -179,6 +179,16 @@ body {
   border-radius: 1rem;
   border: unset;
 }
+
+.modal-body-pt-0 > .ant-modal-content, 
+.modal-body-pt-0 > .ant-modal-content > .ant-modal-body {
+  padding-top: 0;
+}
+
+.modal-body-pt-10 > .ant-modal-content, 
+.modal-body-pt-10 > .ant-modal-content > .ant-modal-body {
+  padding-top: 10px;
+}
 /* Modal Antd */
 
 /* Text Color */

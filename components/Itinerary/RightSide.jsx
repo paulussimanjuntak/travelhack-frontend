@@ -79,7 +79,7 @@ const RightSideContainer = ({
           >
             <Input 
               size="large" 
-              placeholder="Cari wilayah" 
+              placeholder="Find region" 
               className="gmap-input-autocomplete"
               prefix={<SearchOutlined />}
               value={search}
